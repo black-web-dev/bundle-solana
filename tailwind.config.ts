@@ -6,6 +6,8 @@ export default {
     extend: {
       screens: {
         xs: '400px',
+        md: '700px',
+        '2xl': '1590px',
       },
       fontFamily: {
         CalSans: ['Cal Sans SemiBold'],
@@ -15,15 +17,16 @@ export default {
         text: {
           100: '#F1F1F1',
           200: '#9F9F9F',
+          300: '#D1CECB',
         },
         bg: {
           100: '#030116',
           200: '#161616',
-          300: '#1C1C1C'
+          300: '#1C1C1C',
         },
         main: {
           100: '#673DFF',
-          200: '#734DFA'
+          200: '#734DFA',
         },
         border: {
           100: '#ffffff0d',
