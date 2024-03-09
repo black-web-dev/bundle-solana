@@ -54,7 +54,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         ref={ref}
         className={clsx(
-          'group relative flex min-h-[42px] items-center justify-start gap-1 overflow-hidden whitespace-nowrap rounded-lg px-6 py-[10px] font-bold leading-6 shadow-sm transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500',
+          'group relative flex min-h-[42px] items-center justify-start gap-1 overflow-hidden whitespace-nowrap rounded-lg px-6 text-lg py-[10px] font-semibold tracking-[0.01em] shadow-sm transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500',
           rest.disabled && 'cursor-not-allowed bg-[#CED8DF] text-[#4B5A67]',
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore TYPE NEEDS FIXING

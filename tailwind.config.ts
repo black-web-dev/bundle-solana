@@ -6,6 +6,8 @@ export default {
     extend: {
       screens: {
         xs: '400px',
+        md: '700px',
+        '2xl': '1590px',
       },
       fontFamily: {
         CalSans: ['Cal Sans SemiBold'],
@@ -15,22 +17,23 @@ export default {
         text: {
           100: '#F1F1F1',
           200: '#9F9F9F',
+          300: '#D1CECB',
         },
         bg: {
           100: '#030116',
           200: '#161616',
-          300: '#1C1C1C'
+          300: '#1C1C1C',
         },
         main: {
           100: '#673DFF',
-          200: '#734DFA'
+          200: '#734DFA',
         },
         border: {
           100: '#ffffff0d',
         },
       },
       boxShadow: {
-        inputFocus: '0 0 10px 2px rgb(255 255 255 / 29%)',
+        inputFocus: '0 0 6px 2px rgb(255 255 255 / 10%)',
         card: '0px 4px 4px 0px #00000040',
         bottomBar: '0 -1px 4px rgba(0,0,0,.25)',
       },

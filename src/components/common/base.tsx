@@ -8,6 +8,8 @@ import React from 'react';
 import LoadingIndicator from '@/components/common/loadingIndicator';
 import Layout from '@/components/layout';
 
+import { ContextProvider } from '@/contexts/ContextProvider';
+
 export interface IBaseProps {
   title?: string;
   description?: string | null;
@@ -46,9 +48,11 @@ function Base<P>({
           dense
           anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         >
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
+          <ContextProvider>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </ContextProvider>
         </SnackbarProvider>
       </SessionProvider>
 
