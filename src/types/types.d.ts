@@ -7,3 +7,5 @@ type ExactAlt<T, Shape> = T extends Shape
 type Must<T> = {
   [P in keyof T]-?: NonNullable<T[P]>;
 };
+
+type EndpointTypes = 'mainnet' | 'devnet' | 'localnet'
