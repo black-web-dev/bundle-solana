@@ -19,16 +19,14 @@ const DashboardScreen = () => {
   return (
     <div className='mx-auto mb-20 flex max-w-[750px] flex-col gap-10 px-6 py-6'>
       <div className='border-border-100 bg-bg-300 flex flex-col items-center gap-5 rounded-2xl border p-[25px]'>
-        <div className='font-CalSans text-text-300 w-full flex-wrap text-3xl tracking-[0.01em] flex gap-2 items-baseline'>
+        <div className='font-CalSans text-text-300 flex w-full flex-wrap items-baseline gap-2 text-3xl tracking-[0.01em]'>
           <div>You're subscribed to</div>
           <div className='group flex cursor-pointer items-baseline'>
             <div className='relative overflow-hidden'>
               <Logo className='absoulte h-6 w-5 transition-all group-hover:-translate-y-full' />
               <LogoColor className='absolute h-6 w-5 transition-all group-hover:-translate-y-full' />
             </div>
-            <span>
-              undle
-            </span>
+            <span>undle</span>
           </div>
           <div>Basic!</div>
         </div>
@@ -84,10 +82,10 @@ const DashboardScreen = () => {
             your own contract or generate a new SPL token in our bundler Dapp.
           </p>
         </div>
-        <div>
+        <div className='w-full lg:w-fit'>
           <Button
             icon={<LightningIcon classnName='w-5 h-5' />}
-            className='text-base'
+            className='w-full justify-center text-base lg:w-fit'
           >
             Bundle
           </Button>
@@ -95,7 +93,7 @@ const DashboardScreen = () => {
       </div>
 
       <div className='border-border-100 bg-bg-300 flex flex-col items-center gap-5 rounded-2xl border p-[25px]'>
-        <div className='border-border-100 relative h-full w-full rounded-2xl border p-[30px]'>
+        <div className='border-border-100 relative h-full w-full rounded-2xl border p-[10px]'>
           <video
             autoPlay
             loop
@@ -118,8 +116,11 @@ const DashboardScreen = () => {
             reality—quickly, effortlessly, and effectively!
           </p>
         </div>
-        <div>
-          <Button icon={<BsStars />} className='text-base'>
+        <div className='w-full lg:w-fit'>
+          <Button
+            icon={<LightningIcon classnName='w-5 h-5' />}
+            className='w-full justify-center text-base lg:w-fit'
+          >
             Create Token
           </Button>
         </div>

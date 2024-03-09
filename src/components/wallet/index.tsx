@@ -77,7 +77,7 @@ export const Wallet: FC<ButtonProps> = ({ children, ...props }) => {
     return <WalletConnectButton {...props}>{children}</WalletConnectButton>;
 
   return (
-    <div>
+    <div className='relative'>
       <Button
         aria-expanded={active}
         style={{ pointerEvents: active ? 'none' : 'auto', ...props.style }}
@@ -89,7 +89,7 @@ export const Wallet: FC<ButtonProps> = ({ children, ...props }) => {
       <ul
         aria-label='dropdown-list'
         className={clsx(
-          'bg-bg-300 shadow-inputFocus text-text-100 mt-4 cursor-pointer flex-col gap-4 rounded-lg px-4 py-2 text-sm',
+          'absolute w-full bg-bg-300 shadow-inputFocus transition-all text-text-100 mt-4 cursor-pointer flex-col gap-4 rounded-lg p-4 text-sm',
           active ? 'flex' : 'hidden'
         )}
         ref={ref}
