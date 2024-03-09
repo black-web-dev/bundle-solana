@@ -17,9 +17,9 @@ const DashboardScreen = () => {
   }, []);
 
   return (
-    <div className='mx-auto mb-20 flex max-w-[750px] flex-col gap-10 py-6'>
+    <div className='mx-auto mb-20 flex max-w-[750px] flex-col gap-10 px-6 py-6'>
       <div className='border-border-100 bg-bg-300 flex flex-col items-center gap-5 rounded-2xl border p-[25px]'>
-        <div className='font-CalSans text-text-300 w-full text-3xl tracking-[0.01em] flex gap-2 items-baseline'>
+        <div className='font-CalSans text-text-300 w-full flex-wrap text-3xl tracking-[0.01em] flex gap-2 items-baseline'>
           <div>You're subscribed to</div>
           <div className='group flex cursor-pointer items-baseline'>
             <div className='relative overflow-hidden'>
@@ -71,7 +71,7 @@ const DashboardScreen = () => {
       </div>
 
       <div className='border-border-100 bg-bg-300 flex flex-col items-center gap-5 rounded-2xl border p-[25px]'>
-        <div className='font-CalSans text-text-300 w-full text-3xl tracking-[0.01em]'>
+        <div className='font-CalSans text-text-300 w-full flex-wrap text-3xl tracking-[0.01em]'>
           Buy Your Token First, Guaranteed.
         </div>
         <div className='flex flex-col gap-5'>
@@ -108,7 +108,7 @@ const DashboardScreen = () => {
             <source src='/videos/mint.mp4' type='video/mp4' />
           </video>
         </div>
-        <div className='font-CalSans text-text-300 w-full text-3xl tracking-[0.01em]'>
+        <div className='font-CalSans text-text-300 w-full flex-wrap text-3xl tracking-[0.01em]'>
           Create a Solana Token in Minutes.
         </div>
         <div className='flex flex-col gap-5'>
