@@ -19,7 +19,7 @@ export default function Document() {
           crossOrigin='anonymous'
         />
       </Head>
-      <body className='no-scrollbar'>
+      <body className='no-scrollbar text-text-400 bg-bg-200'>
         <Main />
         <NextScript />
       </body>

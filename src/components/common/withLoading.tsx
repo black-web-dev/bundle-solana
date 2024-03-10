@@ -20,7 +20,7 @@ const WithLoading = (Component: any) => {
         <div className='bg-bg-100 flex h-screen w-full items-center justify-center'>
           <div className='group flex cursor-pointer items-baseline'>
             <div className='relative overflow-hidden'>
-              <Logo className='absoulte h-9 w-7 transition-all group-hover:-translate-y-full' />
+              <Logo className='absoulte h-9 w-7 transition-all fill-text-300 group-hover:-translate-y-full' />
               <LogoColor className='absolute h-9 w-7 transition-all group-hover:-translate-y-full' />
             </div>
             <span className='text-text-100 font-CalSans h-0 text-[41px] font-bold'>

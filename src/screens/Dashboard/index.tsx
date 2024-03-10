@@ -17,13 +17,13 @@ const DashboardScreen = () => {
   }, []);
 
   return (
-    <div className='mx-auto mb-20 flex max-w-[750px] flex-col gap-10 px-6 py-6'>
+    <div className='mx-auto lg:mb-20 flex max-w-[750px] flex-col gap-10 px-[10px] py-6'>
       <div className='border-border-100 bg-bg-300 flex flex-col items-center gap-5 rounded-2xl border p-[25px]'>
         <div className='font-CalSans text-text-300 flex w-full flex-wrap items-baseline gap-2 text-3xl tracking-[0.01em]'>
           <div>You're subscribed to</div>
           <div className='group flex cursor-pointer items-baseline'>
             <div className='relative overflow-hidden'>
-              <Logo className='absoulte h-6 w-5 transition-all group-hover:-translate-y-full' />
+              <Logo className='absoulte h-6 w-5 transition-all fill-text-300 group-hover:-translate-y-full' />
               <LogoColor className='absolute h-6 w-5 transition-all group-hover:-translate-y-full' />
             </div>
             <span>undle</span>
