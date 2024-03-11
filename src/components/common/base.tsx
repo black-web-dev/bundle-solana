@@ -1,7 +1,5 @@
 import { Analytics } from '@vercel/analytics/react';
 import Head from 'next/head';
-import type { Session } from 'next-auth';
-import { SessionProvider } from 'next-auth/react';
 import { SnackbarProvider } from 'notistack';
 import React from 'react';
 
@@ -13,7 +11,6 @@ import { ContextProvider } from '@/contexts/ContextProvider';
 export interface IBaseProps {
   title?: string;
   description?: string | null;
-  session: Session;
 }
 
 function Base<P>({
@@ -41,20 +38,18 @@ function Base<P>({
       </Head>
       <LoadingIndicator />
 
-      <SessionProvider session={pageProps.session} refetchInterval={0}>
-        <SnackbarProvider
-          preventDuplicate
-          autoHideDuration={2000}
-          dense
-          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-        >
-          <ContextProvider>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-          </ContextProvider>
-        </SnackbarProvider>
-      </SessionProvider>
+      <SnackbarProvider
+        preventDuplicate
+        autoHideDuration={2000}
+        dense
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      >
+        <ContextProvider>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </ContextProvider>
+      </SnackbarProvider>
 
       <Analytics />
     </>
