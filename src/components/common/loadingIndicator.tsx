@@ -21,7 +21,7 @@ const LoadingIndicator = () => {
   return (
     <div
       className={clsx(
-        'fixed left-0 right-0 top-0 z-50 mb-[-4px] h-1 bg-[#030116]',
+        'fixed left-0 right-0 top-0 z-50 mb-[-4px] h-1 bg-main-100',
         visible ? 'block' : 'hidden',
         !isLoading && 'animate-run w-full'
       )}

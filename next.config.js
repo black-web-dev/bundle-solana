@@ -4,6 +4,10 @@ const nextConfig = {
     dirs: ['src'],
   },
 
+  images: {
+    domains: ["framerusercontent.com"],
+  },
+
   reactStrictMode: false,
   swcMinify: true,
 
