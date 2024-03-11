@@ -18,17 +18,12 @@ const Header = (): JSX.Element => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return (
-    <div
-      className={clsx(
-        'top-0 z-10 w-full backdrop-blur-lg lg:h-fit',
-        isOpen ? 'fixed h-full' : 'sticky'
-      )}
-    >
-      <div className='mx-8 py-5 lg:mx-14'>
+    <div className='sticky top-0 z-10 w-full backdrop-blur-lg lg:h-fit'>
+      <div className='mx-4 flex flex-col gap-[18px] pb-[10px] pt-5 lg:mx-14 lg:py-5'>
         <div className='flex items-center justify-between'>
           <div className='group flex cursor-pointer items-baseline'>
             <div className='relative overflow-hidden'>
-              <Logo className='absoulte h-9 w-7 transition-all fill-text-300 group-hover:-translate-y-full' />
+              <Logo className='absoulte fill-text-300 h-9 w-7 transition-all group-hover:-translate-y-full' />
               <LogoColor className='absolute h-9 w-7 transition-all group-hover:-translate-y-full' />
             </div>
             <span className='text-text-100 font-CalSans h-0 text-[41px] font-bold'>
@@ -40,46 +35,38 @@ const Header = (): JSX.Element => {
               <Menu key={i} menu={menu} />
             ))}
           </div>
-          <div className='flex gap-4'>
-            <div className='hidden sm:block'>
-              <Wallet />
-            </div>
-            <button
-              className='text-text-100 relative inline-flex items-center justify-center rounded-lg hover:text-white focus:outline-none focus:ring-0 lg:hidden'
+          <div className='flex items-center gap-4'>
+            <div
+              className='relative h-[30px] w-[30px] cursor-pointer overflow-hidden lg:hidden'
               onClick={() => setIsOpen(!isOpen)}
             >
-              <span className='absolute -inset-0.5' />
-              <span className='sr-only'>Open main menu</span>
-              {isOpen ? (
-                <AiOutlineClose className='block h-6 w-6' aria-hidden='true' />
-              ) : (
-                <FaBars className='block h-6 w-6' aria-hidden='true' />
-              )}
-            </button>
+              <div
+                className={clsx(
+                  'bg-text-100 absolute left-[calc(50%_-_24px_/_2)] h-[2px] w-[24px] origin-center rounded-sm transition-all',
+                  isOpen
+                    ? 'top-[calc(50%_-_2px_/_2)] rotate-45'
+                    : 'top-[10px] transform-none'
+                )}
+              ></div>
+              <div
+                className={clsx(
+                  'bg-text-100 absolute left-[calc(50%_-_24px_/_2)] h-[2px] w-[24px] origin-center rounded-sm transition-all',
+                  isOpen
+                    ? 'top-[calc(50%_-_2px_/_2)] -rotate-45'
+                    : 'bottom-[10px] transform-none'
+                )}
+              ></div>
+            </div>
+            <Wallet />
           </div>
         </div>
-
         {isOpen && (
-          <div
-            className={clsx(
-              'transition-all lg:hidden',
-              isOpen
-                ? 'max-h-full translate-y-0 opacity-100'
-                : 'max-h-0 -translate-y-full opacity-0'
-            )}
-          >
-            <div
-              className={clsx(
-                'flex flex-col items-start justify-between gap-4 py-5'
-              )}
-            >
-              {menus.map((menu, i) => (
+          <div className='flex items-center justify-center gap-4 lg:hidden'>
+            {menus
+              .filter((item) => item.sub.length === 0)
+              .map((menu, i) => (
                 <Menu key={i} menu={menu} />
               ))}
-              <div className='sm:hidden'>
-                <Wallet />
-              </div>
-            </div>
           </div>
         )}
       </div>
