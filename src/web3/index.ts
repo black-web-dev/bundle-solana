@@ -84,9 +84,9 @@ export class Connectivity {
         if (signers && signers.length > 0) tx.sign(...signers)
         const signedTxs = await this.provider.wallet.signTransaction(tx)
         const rawTx = Buffer.from(signedTxs.serialize())
-        const txSignature = await this.connection.sendRawTransaction(rawTx).catch(async () => {
+        const txSignature = await web3.sendAndConfirmRawTransaction(this.connection, rawTx).catch(async () => {
             await sleep(2_000)
-            return this.connection.sendRawTransaction(rawTx).catch((sendRawTransactionError) => {
+            return web3.sendAndConfirmRawTransaction(this.connection, rawTx).catch((sendRawTransactionError) => {
                 const logErrorMsg = opt?.logErrorMsg ?? !ENV.IN_PRODUCTION
                 if (logErrorMsg) log({ sendRawTransactionError })
                 return undefined
