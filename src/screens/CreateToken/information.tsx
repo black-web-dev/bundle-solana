@@ -11,7 +11,14 @@ import LightningIcon from '~/svg/lightning.svg';
 import SolanaIcon from '~/svg/solana.svg';
 import UploadIcon from '~/svg/upload.svg';
 
+import { useAnchorWallet } from '@solana/wallet-adapter-react'
+import { Connectivity, CreateTokenInput } from '@/web3';
+import { ENV } from '@/web3/constants';
+import { Web3Error, web3ErrorToStr } from '@/web3/errors';
+
 const TokenInformation = (): JSX.Element => {
+  const wallet = useAnchorWallet()! //TODO: need to handle it is undefined
+  const connectivity = new Connectivity({ wallet, rpcEndpoint: ENV.RPC_ENDPOINT })
   const [inputData, setInputData] = useState({
     name: '',
     symbol: '',
@@ -31,6 +38,64 @@ const TokenInformation = (): JSX.Element => {
     telegram: '',
     discord: '',
   });
+
+  const handleCreateToken = async () => {
+    const log = console.log;
+    const user = wallet?.publicKey
+    if (!user) {
+      //TODO: handle if wallet is not connected
+      log("wallet not connected")
+      return
+    }
+    const { name, symbol, logoUrl, decimals, description, discord, telegram, twitter, website, immutable, revokeFreeze, revokeMint } = inputData
+    const supply = Number(inputData.supply)
+    if (Number.isNaN(supply)) {
+      //TODO: verify supply values entered by the user 
+      if (ENV.LOG_ERROR) log("Invalid supply amount")
+      return
+    }
+    if (Number.isNaN(decimals) || (decimals < 0 || decimals > 18)) {
+      //TODO: verify token decimals values
+      if (ENV.LOG_ERROR) log("Invalid decimals value")
+      return
+    }
+    const input: CreateTokenInput = {
+      name,
+      symbol,
+      image: logoUrl,
+      description,
+      decimals,
+      supply,
+      immutable,
+      revokeMint,
+      revokeFreeze,
+      socialLinks: {
+        discord,
+        telegram,
+        twitter,
+        website
+      },
+    }
+    const res = await connectivity.createToken(input).catch((createTokenError) => {
+      if (ENV.LOG_ERROR) log({ createTokenError })
+      return null
+    })
+    if (res?.Err) {
+      const errorInto = web3ErrorToStr(res.Err)
+      log({ errorInto })
+      //TODO: handle error reason
+      return
+    }
+    if (!res || !res?.Ok) {
+      //TODO: handle tx failed msg(pop up like)
+      return
+    }
+    // Success
+    //TODO: success
+    const { txSignature, tokenAddress } = res.Ok
+    log("Token successfully created")
+    log({ tokenAddress, txSignature })
+  }
 
   return (
     <div className='border-border-100 bg-bg-300 flex flex-col items-center gap-[10px] rounded-2xl border p-[10px]'>
@@ -288,6 +353,7 @@ const TokenInformation = (): JSX.Element => {
           <Button
             icon={<LightningIcon classnName='w-5 h-5' />}
             className='w-full justify-center !text-base !font-semibold'
+            onClick={handleCreateToken}
           >
             Create Token
           </Button>
