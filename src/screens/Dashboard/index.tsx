@@ -5,6 +5,7 @@ import Button from '@/components/common/button';
 import LightningIcon from '~/svg/lightning.svg';
 import Logo from '~/svg/logo.svg';
 import LogoColor from '~/svg/logo-color.svg';
+import StarIcon from '~/svg/start.svg';
 
 const DashboardScreen = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -17,7 +18,7 @@ const DashboardScreen = () => {
 
   return (
     <div className='mx-auto flex max-w-[750px] flex-col gap-10 px-[10px] py-6 lg:mb-20'>
-      <div className='border-border-100 bg-bg-300 lg:p-x[25px] flex flex-col items-center gap-5 rounded-2xl border px-[11px] py-[25px]'>
+      <div className='border-border-100 bg-bg-300 lg:px-[25px] flex flex-col items-center gap-5 rounded-2xl border px-[11px] py-[25px]'>
         <div className='font-CalSans text-text-300 flex w-full flex-wrap items-baseline gap-2 text-3xl tracking-[0.01em]'>
           <div>You're subscribed to</div>
           <div className='group flex cursor-pointer items-baseline'>
@@ -58,7 +59,7 @@ const DashboardScreen = () => {
         </div>
       </div>
 
-      <div className='border-border-100 bg-bg-300 lg:p-x[25px] flex flex-col items-center gap-5 rounded-2xl border px-[11px] py-[25px]'>
+      <div className='border-border-100 bg-bg-300 lg:px-[25px] flex flex-col items-center gap-5 rounded-2xl border px-[11px] py-[25px]'>
         <div className='flex w-full items-center justify-start gap-4'>
           <div className='font-CalSans text-text-300 text-3xl font-bold tracking-[0.01em]'>
             Analytics
@@ -67,7 +68,7 @@ const DashboardScreen = () => {
         </div>
       </div>
 
-      <div className='border-border-100 bg-bg-300 lg:p-x[25px] flex flex-col items-center gap-5 rounded-2xl border px-[11px] py-[25px]'>
+      <div className='border-border-100 bg-bg-300 lg:px-[25px] flex flex-col items-center gap-5 rounded-2xl border px-[11px] py-[25px]'>
         <div className='font-CalSans text-text-300 w-full flex-wrap text-3xl tracking-[0.01em]'>
           Buy Your Token First, Guaranteed.
         </div>
@@ -81,17 +82,17 @@ const DashboardScreen = () => {
             your own contract or generate a new SPL token in our bundler Dapp.
           </p>
         </div>
-        <div className='w-full lg:w-fit'>
+        <div className='w-full'>
           <Button
             icon={<LightningIcon classnName='w-5 h-5' />}
-            className='w-full justify-center text-base lg:w-fit'
+            className='w-full justify-center text-base'
           >
             Bundle
           </Button>
         </div>
       </div>
 
-      <div className='border-border-100 bg-bg-300 lg:p-x[25px] flex flex-col items-center gap-5 rounded-2xl border px-[11px] py-[25px]'>
+      <div className='border-border-100 bg-bg-300 lg:px-[25px] flex flex-col items-center gap-5 rounded-2xl border px-[11px] py-[25px]'>
         <div className='border-border-100 relative h-full w-full rounded-2xl border p-[10px]'>
           <video
             autoPlay
@@ -115,10 +116,10 @@ const DashboardScreen = () => {
             reality—quickly, effortlessly, and effectively!
           </p>
         </div>
-        <div className='w-full lg:w-fit'>
+        <div className='w-full'>
           <Button
-            icon={<LightningIcon classnName='w-5 h-5' />}
-            className='w-full justify-center text-base lg:w-fit'
+            icon={<StarIcon classnName='w-5 h-5' />}
+            className='w-full justify-center text-base'
           >
             Create Token
           </Button>

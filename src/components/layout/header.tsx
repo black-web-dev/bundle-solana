@@ -1,8 +1,7 @@
 import clsx from 'clsx';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React, { useState } from 'react';
-import { AiOutlineClose } from 'react-icons/ai';
-import { FaBars } from 'react-icons/fa';
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
 
 import { menus } from '@/contants';
@@ -19,11 +18,11 @@ const Header = (): JSX.Element => {
 
   return (
     <div className='sticky top-0 z-10 w-full backdrop-blur-lg lg:h-fit'>
-      <div className='mx-4 flex flex-col gap-[18px] pb-[10px] pt-5 lg:mx-14 lg:py-5'>
+      <div className='mx-4 flex flex-col gap-[18px] pb-[10px] pt-5 lg:mx-[72px] lg:py-5'>
         <div className='flex items-center justify-between'>
           <div className='group flex cursor-pointer items-baseline'>
             <div className='relative overflow-hidden'>
-              <Logo className='absoulte fill-text-300 h-9 w-7 transition-all group-hover:-translate-y-full' />
+              <Logo className='absoulte fill-text-100 h-9 w-7 transition-all group-hover:-translate-y-full' />
               <LogoColor className='absolute h-9 w-7 transition-all group-hover:-translate-y-full' />
             </div>
             <span className='text-text-100 font-CalSans h-0 text-[41px] font-bold'>
@@ -77,11 +76,12 @@ const Header = (): JSX.Element => {
 export default Header;
 
 const Menu = ({ menu }: { menu: MenuType }): JSX.Element => {
+  const { pathname } = useRouter();
   return (
     <div className='group relative'>
       <Link href={menu.href}>
         <div className='flex items-center gap-2 py-2'>
-          <div>{menu.title}</div>
+          <div className={clsx('hover:text-text-400', pathname === menu.href && 'text-text-300')}>{menu.title}</div>
           {menu.sub.length > 0 && <MdOutlineKeyboardArrowDown />}
         </div>
       </Link>
