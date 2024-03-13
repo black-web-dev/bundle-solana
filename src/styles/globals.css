@@ -37,11 +37,11 @@ input[type='number']::-webkit-outer-spin-button {
 }
 
 input::selection {
-  background-color: #fbe460;
+  background-color: #673DFF;
 }
 
 ::selection {
-  background-color: #fbe460;
+  background-color: #673DFF;
 }
 
 .no-scrollbar {

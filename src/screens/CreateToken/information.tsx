@@ -1,24 +1,27 @@
 import { useAnchorWallet } from '@solana/wallet-adapter-react';
+import clsx from 'clsx';
 import { useFormik } from 'formik';
 import Image from 'next/image';
-import React, { useCallback, useState } from 'react';
+import Link from 'next/link';
+import React, { useCallback, useRef, useState } from 'react';
 import { IoChevronDownOutline } from 'react-icons/io5';
 import * as Yup from 'yup';
 
 import useNotification from '@/hooks/useNotification';
 
 import Button from '@/components/common/button';
-import Copy from '@/components/common/copy';
 import Input from '@/components/common/input';
 import Switch from '@/components/common/switch';
 import TextArea from '@/components/common/textarea';
 
 import { ENV } from '@/configs';
-import { shortAddress } from '@/utils';
+import { exploreLink, shortAddress } from '@/utils';
 import { Connectivity, CreateTokenInput } from '@/web3';
+import { deployDataToIPFS } from '@/web3/base/utils';
 import { web3ErrorToStr } from '@/web3/errors';
 
 import LightningIcon from '~/svg/lightning.svg';
+import LinkIcon from '~/svg/link.svg';
 import SolanaIcon from '~/svg/solana.svg';
 import UploadIcon from '~/svg/upload.svg';
 
@@ -26,10 +29,12 @@ const TokenInformation = (): JSX.Element => {
   const wallet = useAnchorWallet();
   const notify = useNotification();
 
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [logoFile, setLogoFile] = useState<File>();
+
   const [isCreating, setIsCreating] = useState<boolean>(false);
   const [isLogoUrl, setIsLogoUrl] = useState<boolean>(false);
   const [isIpfs, setIsIpfs] = useState<boolean>(false);
-  const [isShowSample, setIsShowSample] = useState<boolean>(false);
   const [isLink, setIsLink] = useState<boolean>(false);
   const [createTokenInfo, setCreateTokenInfo] = useState<{
     address: string;
@@ -91,6 +96,15 @@ const TokenInformation = (): JSX.Element => {
 
       setIsCreating(true);
 
+      if (logoFile) {
+        const formData = new FormData();
+        formData.append('file', logoFile);
+
+        const ipfsHash = await deployDataToIPFS(formData, 'File');
+        if (ipfsHash)
+          value.image = `https://${ENV.PINATA_DOMAIN}/ipfs/${ipfsHash}`;
+      }
+
       connectivity
         .createToken(value)
         .then((res) => {
@@ -118,8 +132,20 @@ const TokenInformation = (): JSX.Element => {
           setIsCreating(false);
         });
     },
-    [notify, wallet]
+    [logoFile, notify, wallet]
   );
+
+  const openFileBrowser = (e: React.MouseEvent<HTMLElement>) => {
+    if (inputRef.current) {
+      inputRef.current.click();
+    }
+    e.stopPropagation();
+  };
+
+  const handleAddFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files && e.target.files[0];
+    file && setLogoFile(file);
+  };
 
   const formik = useFormik({
     initialValues: inputData,
@@ -256,22 +282,32 @@ const TokenInformation = (): JSX.Element => {
               />
             ) : (
               <div className='flex items-center justify-center'>
-                <div className='bg-bg-400 border-border-100 relative flex h-[100px] w-[100px] cursor-pointer items-center justify-center rounded-2xl border p-[3px] transition-all hover:bg-[#6b6b6bc4]'>
-                  {isShowSample && (
+                <div className='bg-bg-400 border-border-100 group relative flex h-[100px] w-[100px] cursor-pointer items-center justify-center rounded-2xl border p-[3px]'>
+                  {logoFile && (
                     <Image
                       className='rounded-2xl'
-                      src='https://framerusercontent.com/images/RWlK2O3nC476LqynY7XLRfSXhhw.png'
-                      width={100}
-                      height={100}
+                      src={URL.createObjectURL(logoFile)}
+                      fill
                       alt='logo'
                     />
                   )}
                   <div
-                    className='absolute inset-0 z-10 flex items-center justify-center rounded-2xl transition-all hover:bg-[#6b6b6bc4]'
-                    onClick={() => setIsShowSample(!isShowSample)}
+                    className={clsx(
+                      'absolute flex h-full w-full items-center justify-center rounded-2xl transition-all hover:bg-[#6b6b6bc4]',
+                      logoFile && 'hidden group-hover:flex'
+                    )}
+                    onClick={openFileBrowser}
                   >
                     <UploadIcon className='text-bg-100 h-[50px] w-[50px]' />
                   </div>
+                  <input
+                    ref={inputRef}
+                    style={{ display: 'none' }}
+                    accept='.jpg, .jpeg, .png'
+                    type='file'
+                    name='file'
+                    onChange={handleAddFile}
+                  />
                 </div>
               </div>
             )}
@@ -354,24 +390,24 @@ const TokenInformation = (): JSX.Element => {
           </div>
 
           {createTokenInfo && (
-            <div className='flex flex-col gap-4 text-sm py-5'>
+            <div className='flex flex-col gap-4 py-5 text-sm'>
               <div className='flex items-center justify-between'>
                 <div className=''>Token Address:</div>
-                <div className='text-text-100 flex gap-2'>
-                  {shortAddress(createTokenInfo.address)}{' '}
-                  <Copy toCopy={createTokenInfo.address} />
+                <div className='text-text-100 flex gap-2 items-center hover:text-main-100'>
+                  <Link href={exploreLink(createTokenInfo.address, 'token')} target='_blank'>{shortAddress(createTokenInfo.address)}</Link>
+                  <LinkIcon className='stroke-text-200' />
                 </div>
               </div>
               <div className='flex items-center justify-between'>
                 <div className=''>Transaction Hash:</div>
-                <div className='text-text-100 flex gap-2'>
-                  {shortAddress(createTokenInfo.tx)}
-                  <Copy toCopy={createTokenInfo.tx} />
+                <div className='text-text-100 flex gap-2 items-center hover:text-main-100'>
+                  <Link href={exploreLink(createTokenInfo.tx, 'tx')} target='_blank'>{shortAddress(createTokenInfo.tx)}</Link>
+                  <LinkIcon className='stroke-text-200' />
                 </div>
               </div>
             </div>
           )}
-          
+
           <div className='w-full'>
             <Button
               type='submit'

@@ -65,8 +65,11 @@ export async function createLookupTable(
   }
 }
 
-export async function deployJsonData(data: any): Promise<string | null> {
-  const url = `https://api.pinata.cloud/pinning/pinJSONToIPFS`;
+export async function deployDataToIPFS(
+  data: any,
+  type: 'JSON' | 'File' = 'JSON'
+): Promise<string | null> {
+  const url = `https://api.pinata.cloud/pinning/pin${type}ToIPFS`;
   const pinataApiKey = ENV.PINATA_API_kEY;
   const pinataSecretApiKey = ENV.PINATA_API_SECRET_KEY;
 
@@ -76,7 +79,8 @@ export async function deployJsonData(data: any): Promise<string | null> {
     data,
     {
       headers: {
-        'Content-Type': `application/json`,
+        'Content-Type':
+          type === 'JSON' ? `application/json` : `multipart/form-data`,
         pinata_api_key: pinataApiKey,
         pinata_secret_api_key: pinataSecretApiKey,
       },
