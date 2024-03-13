@@ -7,7 +7,7 @@ import clsx from 'clsx';
 export default function Loader({
   className,
   size = '16px',
-  stroke = '#673DFF',
+  stroke = '#FFFFFF',
   strokewidth = 2.5,
   ...rest
 }: {

@@ -1,20 +1,19 @@
-import { BN, AnchorProvider, Program, web3 } from "@coral-xyz/anchor";
+import { AnchorProvider, web3 } from "@coral-xyz/anchor";
 import { Wallet } from "@coral-xyz/anchor/dist/cjs/provider";
-import { BaseSpl } from "./base/baseSpl";
-import { calcDecimalValue, calcNonDecimalValue, deployJsonData, sleep } from "./base/utils";
-import { ENV } from "./constants";
-import { BaseMpl } from "./base/baseMpl";
-import { TokenStandard } from "@metaplex-foundation/mpl-token-metadata";
-import { Result, TxPassResult } from "./base/types";
-import { PROGRAMS } from "./constants";
-import { toBufferBE } from 'bigint-buffer'
-import { Web3Error, web3ErrorToStr } from "./errors";
-import { getPubkeyFromStr } from "./utils";
 import { TOKEN_PROGRAM_ID } from "@coral-xyz/anchor/dist/cjs/utils/token";
-import { MintLayout, AccountLayout as TokenAccountLayout, getAssociatedTokenAddressSync, createAssociatedTokenAccountInstruction, createTransferInstruction } from '@solana/spl-token'
-import { fi, is } from "date-fns/locale";
+import { AccountLayout as TokenAccountLayout, createAssociatedTokenAccountInstruction, createTransferInstruction,getAssociatedTokenAddressSync, MintLayout } from '@solana/spl-token'
+
+import { ENV } from "@/configs";
+
+import { BaseMpl } from "./base/baseMpl";
+import { BaseSpl } from "./base/baseSpl";
+import { Result, TxPassResult } from "./base/types";
+import { calcNonDecimalValue, deployJsonData, sleep } from "./base/utils";
+import { Web3Error } from "./errors";
+import { getPubkeyFromStr } from "./utils";
 
 const log = console.log;
+
 export type CreateTokenInput = {
     name: string,
     symbol: string,
@@ -58,7 +57,6 @@ export type AirdropInput = {
     receivers: { wallet: string, amount: number }[]
 }
 
-const todo = null as any
 export class Connectivity {
     private provider: AnchorProvider;
     private connection: web3.Connection;
@@ -257,9 +255,9 @@ export class Connectivity {
         )?.blockhash
         if (!recentBlockhash) return { Err: Web3Error.FAILED_TO_FETCH_DATA }
         const txs: web3.VersionedTransaction[] = []
-        for (let infoes of airdropTxInfoChunks) {
-            let ixs: web3.TransactionInstruction[] = []
-            for (let { amount, initAta, receiver, receiverAta } of infoes) {
+        for (const infoes of airdropTxInfoChunks) {
+            const ixs: web3.TransactionInstruction[] = []
+            for (const { amount, initAta, receiver, receiverAta } of infoes) {
                 if (initAta) ixs.push(
                     createAssociatedTokenAccountInstruction(
                         user,
@@ -287,7 +285,7 @@ export class Connectivity {
         if (!signedTxs) return { Err: Web3Error.TX_SIGN_FAILED }
         const txsRes: (string | undefined)[] = []
         const asyncTxsHandler: Promise<(string | undefined)>[] = []
-        for (let tx of signedTxs) {
+        for (const tx of signedTxs) {
             const rawTx = Buffer.from(tx.serialize())
             const handler = web3.sendAndConfirmRawTransaction(this.connection, rawTx).catch(async () => {
                 await sleep(2_000)
@@ -298,11 +296,11 @@ export class Connectivity {
             })
             asyncTxsHandler.push(handler)
         }
-        for (let handler of asyncTxsHandler) {
+        for (const handler of asyncTxsHandler) {
             txsRes.push(await handler);
         }
-        let passTxReceiver = []
-        let failTxReceiver = []
+        const passTxReceiver = []
+        const failTxReceiver = []
         const txsSignature: string[] = []
         for (let i = 0; i < txsRes.length; ++i) {
             const txRes = txsRes[i]
@@ -327,9 +325,9 @@ export class Connectivity {
         const user = this.provider.publicKey;
         if (!user) throw "Wallet not connected"
         const tokens = await this.baseMpl.getAllTokensWithMetadata(user).catch(() => null) ?? []
-        let res: AllUserTokens[] = []
-        let asyncHandlers: Promise<void>[] = []
-        for (let token of tokens) {
+        const res: AllUserTokens[] = []
+        const asyncHandlers: Promise<void>[] = []
+        for (const token of tokens) {
             const metadata = token.metadata
             const tokenInfo = token.tokenInfo
             const e: AllUserTokens = {
@@ -355,7 +353,7 @@ export class Connectivity {
                     })
                 ))
         }
-        for (let handler of asyncHandlers) await handler;
+        for (const handler of asyncHandlers) await handler;
         return res
     }
 }

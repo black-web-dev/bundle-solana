@@ -8,7 +8,7 @@ export function getPubkeyFromStr(key: string) {
     }
 }
 
-export function generateKeypairs(count: number = 1) {
+export function generateKeypairs(count = 1) {
     const keypairs: web3.Keypair[] = []
     for (let i = 0; i < count; ++i) {
         keypairs.push(web3.Keypair.generate())

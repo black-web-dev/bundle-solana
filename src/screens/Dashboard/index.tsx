@@ -12,6 +12,7 @@ const DashboardScreen = () => {
 
   useEffect(() => {
     return () => {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       videoRef.current?.play();
     };
   }, []);
@@ -84,7 +85,7 @@ const DashboardScreen = () => {
         </div>
         <div className='w-full'>
           <Button
-            icon={<LightningIcon classnName='w-5 h-5' />}
+            icon={<LightningIcon className='w-5 h-5' />}
             className='w-full justify-center text-base'
           >
             Bundle
@@ -118,7 +119,7 @@ const DashboardScreen = () => {
         </div>
         <div className='w-full'>
           <Button
-            icon={<StarIcon classnName='w-5 h-5' />}
+            icon={<StarIcon className='w-5 h-5' />}
             className='w-full justify-center text-base'
           >
             Create Token

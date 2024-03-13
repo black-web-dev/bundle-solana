@@ -26,7 +26,7 @@ const Bundle = (): JSX.Element => {
 
       <div className='w-full mt-4'>
         <Button
-          icon={<LightningIcon classnName='w-5 h-5' />}
+          icon={<LightningIcon className='w-5 h-5' />}
           className='w-full justify-center !text-base !font-semibold'
         >
           Bundle Your New Token

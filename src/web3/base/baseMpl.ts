@@ -1,25 +1,19 @@
-import { AnchorProvider, BN, web3 } from "@coral-xyz/anchor";
+import { AnchorProvider, web3 } from "@coral-xyz/anchor";
 import { Wallet } from "@coral-xyz/anchor/dist/cjs/provider";
 import { utf8 } from "@coral-xyz/anchor/dist/cjs/utils/bytes";
-import { BaseSpl, ParseTokenInfo } from "./baseSpl";
-
+import { getMultipleAccounts } from "@coral-xyz/anchor/dist/cjs/utils/rpc";
 // import { TokenMetadataAuthorizationDetails, getAccountParsingAndAssertingFunction, Sft } from '@metaplex-foundation/js/dist/types';
 import {
-  PROGRAM_ID as MPL_ID,
-  Metadata,
-  TokenStandard,
   createCreateMetadataAccountV3Instruction,
-  createUpdateMetadataAccountV2Instruction,
-  createUpdateInstruction
-} from "@metaplex-foundation/mpl-token-metadata";
+  Metadata,
+  PROGRAM_ID as MPL_ID,
+  TokenStandard} from "@metaplex-foundation/mpl-token-metadata";
 
 // import {
 //   CreateNftBuilderParams,
 //   Metaplex
 // } from "@metaplex-foundation/js";
-import { MintLayout, TOKEN_PROGRAM_ID } from '@solana/spl-token';
-import { MPLTokenInfo } from "./types";
-import { getMultipleAccounts } from "@coral-xyz/anchor/dist/cjs/utils/rpc";
+import { BaseSpl, ParseTokenInfo } from "./baseSpl";
 
 const log = console.log;
 

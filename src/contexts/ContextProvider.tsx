@@ -12,8 +12,6 @@ import { clusterApiUrl } from '@solana/web3.js';
 import dynamic from 'next/dynamic';
 import { FC, ReactNode, useCallback, useMemo } from 'react';
 
-import useNotification from '@/hooks/useNotification';
-
 import { AutoConnectProvider, useAutoConnect } from './AutoConnectProvider';
 
 const ReactUIWalletModalProviderDynamic = dynamic(
@@ -24,7 +22,6 @@ const ReactUIWalletModalProviderDynamic = dynamic(
 
 const WalletContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const { autoConnect } = useAutoConnect();
-  const notify = useNotification();
   const network = WalletAdapterNetwork.Devnet;
   const endpoint = useMemo(() => clusterApiUrl(network), [network]);
 
@@ -41,10 +38,6 @@ const WalletContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
   );
 
   const onError = useCallback((error: WalletError) => {
-    notify(
-      error.message ? `${error.name}: ${error.message}` : error.name,
-      'error'
-    );
     console.error(error);
   }, []);
 
