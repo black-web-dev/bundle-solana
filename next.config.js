@@ -26,6 +26,7 @@ const nextConfig = {
   // },
 
   // SVGR
+  webpack5: true,
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/i,
@@ -42,7 +43,11 @@ const nextConfig = {
     });
 
     config.externals.push('pino-pretty', 'lokijs', 'encoding');
-
+    config.resolve.fallback = {
+      ...config.resolve.fallback, // if you miss it, all the other options in fallback, specified
+      // by next.js will be dropped. Doesn't make much sense, but how it is
+      fs: false, // the solution
+    };
     return config;
   },
 };
