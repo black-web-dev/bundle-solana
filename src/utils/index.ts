@@ -1,6 +1,8 @@
 import BigNumber from 'bignumber.js';
 import { format } from 'date-fns';
 
+import { ENV } from '@/configs';
+
 export const INPUT_DATE_FORMAT = 'yyyy-MM-dd HH:mm';
 
 export const formatNum = (num: number, fixed = 0) => {
@@ -67,4 +69,10 @@ export function durationInSeconds(_from: string, _to?: string) {
       (_to ? new Date(_to).getTime() : new Date().getTime())) /
       1000
   );
+}
+
+export function exploreLink(address: string, type: string) {
+  return `https://solscan.io/${type}/${address}${
+    ENV.IN_PRODUCTION ? '' : '/?cluster=devnet'
+  }`;
 }

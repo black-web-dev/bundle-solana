@@ -8,7 +8,7 @@ import { ENV } from "@/configs";
 import { BaseMpl } from "./base/baseMpl";
 import { BaseSpl } from "./base/baseSpl";
 import { Result, TxPassResult } from "./base/types";
-import { calcNonDecimalValue, deployJsonData, sleep } from "./base/utils";
+import { calcNonDecimalValue, deployDataToIPFS, sleep } from "./base/utils";
 import { Web3Error } from "./errors";
 import { getPubkeyFromStr } from "./utils";
 
@@ -100,7 +100,7 @@ export class Connectivity {
         const { name, symbol, image, decimals, description, supply, socialLinks, immutable, revokeMint, revokeFreeze } = input
         let ipfsHash = "null";
         if (!ENV.SKIP_DEPLOY_JSON_METADATA) {
-            const hash = await deployJsonData({
+            const hash = await deployDataToIPFS({
                 image, description,
                 external_url: socialLinks?.website,
                 extensions: {

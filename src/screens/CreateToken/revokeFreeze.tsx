@@ -1,18 +1,19 @@
 import { useAnchorWallet } from '@solana/wallet-adapter-react';
+import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 
 import useNotification from '@/hooks/useNotification';
 
 import Button from '@/components/common/button';
-import Copy from '@/components/common/copy';
 import Input from '@/components/common/input';
 
 import { ENV } from '@/configs';
-import { shortAddress } from '@/utils';
+import { exploreLink, shortAddress } from '@/utils';
 import { Connectivity } from '@/web3';
 import { web3ErrorToStr } from '@/web3/errors';
 import { getPubkeyFromStr } from '@/web3/utils';
 
+import LinkIcon from '~/svg/link.svg';
 import SnowIcon from '~/svg/snow.svg';
 
 const RevokeFreeze = (): JSX.Element => {
@@ -96,7 +97,10 @@ const RevokeFreeze = (): JSX.Element => {
           <div className='flex items-center justify-between'>
             <div className=''>Transaction Hash:</div>
             <div className='text-text-100 flex gap-2'>
-              {shortAddress(tx)} <Copy toCopy={tx} />
+              <Link href={exploreLink(tx, 'tx')} target='_blank'>
+                {shortAddress(tx)}
+              </Link>
+              <LinkIcon className='stroke-text-200' />
             </div>
           </div>
         </div>
