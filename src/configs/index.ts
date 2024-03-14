@@ -12,7 +12,7 @@ const PINATA_DOMAIN = process.env.NEXT_PUBLIC_PINATA_DOMAIN;
 const PINATA_API_SECRET_KEY = process.env.NEXT_PUBLIC_PINATA_API_SECRET_KEY;
 const SKIP_DEPLOY_JSON_METADATA =
   process.env.SKIP_DEPLOY_JSON_METADATA == '1' ? true : false;
-const IN_PRODUCTION = process.env.IN_PRODUCTION == '1' ? true : false;
+const IN_PRODUCTION = process.env.NEXT_PUBLIC_PRODUCTION == '1' ? true : false;
 const LOG_ERROR = !IN_PRODUCTION;
 if (!PINATA_API_kEY || !PINATA_API_SECRET_KEY || !PINATA_DOMAIN) {
   // throw "Some ENV keys and info not found"
